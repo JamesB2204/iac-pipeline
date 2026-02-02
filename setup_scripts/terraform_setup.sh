@@ -17,8 +17,6 @@ if [ "$TERRAFORM_VERSION" == "latest" ]; then
     TERRAFORM_VERSION=$(get_latest_version)
 fi
 
-echo "Installing Terraform version $TERRAFORM_VERSION..."
-
 TERRAFORM_ZIP="terraform_${TERRAFORM_VERSION}_${OS}_${ARCH}.zip"
 DOWNLOAD_URL="https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_ZIP}"
 
@@ -38,4 +36,5 @@ source ~/.bashrc
 # Verify installation
 echo "Terraform version installed:"
 "$INSTALL_DIR/terraform" version
+
 
