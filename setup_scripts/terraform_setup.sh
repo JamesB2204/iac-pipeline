@@ -7,6 +7,8 @@ INSTALL_DIR="$HOME/bin"
 OS="linux"
 ARCH="amd64"
 
+apt-get update && sudo apt-get install -y unzip jq curl
+
 mkdir -p "$INSTALL_DIR"
 
 get_latest_version() {
