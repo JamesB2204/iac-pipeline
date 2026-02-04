@@ -1,6 +1,6 @@
 name: CI-software-quality-checks
 run-name: Checking code quality for${{ github.actor }}
-on: [pull_request]
+on: [workflow_call]
 jobs: 
   terraform-quality-checks:
     runs-on: ubuntu-24.04
