@@ -6,10 +6,10 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v2
-    - name: Set up python 3.10
+    - name: Set up python 3.9
       uses: actions/setup-python@v4
       with:
-        python-version: 3.10
+        python-version: 3.9
     - name: Test with Checkov
       id: checkov
       uses: bridgecrewio/checkov-action@v12.1347.0
