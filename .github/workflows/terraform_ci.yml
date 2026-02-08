@@ -5,5 +5,16 @@ jobs:
   terraform-quality-checks:
     runs-on: ubuntu-24.04
     steps:
-      - run: echo "Starting Terraform code quality checks"
+    - uses: actions/checkout@v2
+    - name: Set up python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+    - name: Test with Checkov
+      id: checkov
+      uses: bridgecrewio/checkov-action@v12.1347.0
+      with:
+        directory: live/dev/terragrunt.hcl
+        framework: terraform 
+    - run: echo "Starting Terraform code quality checks"
   
