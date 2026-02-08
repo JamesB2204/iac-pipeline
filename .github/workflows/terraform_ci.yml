@@ -15,6 +15,6 @@ jobs:
       uses: bridgecrewio/checkov-action@v12.1347.0
       with:
         directory: live/dev/terragrunt.hcl
-        framework: terraform 
+        framework: terragrunt 
     - run: echo "Starting Terraform code quality checks"
   
