@@ -6,15 +6,25 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v2
-    - name: Set up python 3.10
+    - name: Set up python 3.9
       uses: actions/setup-python@v4
       with:
-        python-version: 3.10
+        python-version: 3.9
     - name: Test with Checkov
       id: checkov
       uses: bridgecrewio/checkov-action@v12.1347.0
       with:
         directory: live/dev/terragrunt.hcl
         framework: terraform 
-    - run: echo "Starting Terraform code quality checks"
+      shell: bash
+      run: |
+        echo "Starting Terraform code quality checks"
+
+        terragrunt init
+    # please view:
+    # https://www.checkov.io/8.Outputs/SARIF.html
+    # https://docs.github.com/en/code-security/how-tos/scan-code-for-vulnerabilities/integrate-with-existing-tools/uploading-a-sarif-file-to-github#uploading-a-code-scanning-analysis-with-github-actions
+    - run: checkov -d . -o sarif > results.sarif
+    - run: cat results.sarif
+
   
