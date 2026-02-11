@@ -7,6 +7,10 @@ on:
       branch:
         required: true
         type: string
+    inputs:
+      cloud_token:
+        required: true
+        type: string
 
 jobs:
   terraform-quality-checks:
