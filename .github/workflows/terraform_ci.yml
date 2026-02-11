@@ -42,10 +42,14 @@ jobs:
         with:
           tg_version: '0.99.1'
           tf_path: "terraform"
+      
+      - name: install checkov
+        run: pip install checkov
 
           # please view:
       # https://www.checkov.io/8.Outputs/SARIF.html
       # https://docs.github.com/en/code-security/how-tos/scan-code-for-vulnerabilities/integrate-with-existing-tools/uploading-a-sarif-file-to-github#uploading-a-code-scanning-analysis-with-github-actions
+      # run all allows for terragrunt to check repo root
       - name: start quality checks
         shell: bash
         run: |
