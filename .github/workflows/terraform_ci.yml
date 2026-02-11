@@ -36,7 +36,7 @@ jobs:
       - name: Install Terragrunt and OpenTofu
         uses: gruntwork-io/terragrunt-action@v3
         with:
-          tg_version: '0.82.2'
+          tg_version: '0.99.1'
           tf_path: "terraform"
 
           # please view:
