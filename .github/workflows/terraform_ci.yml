@@ -57,6 +57,6 @@ jobs:
 
           terragrunt run --all --filter-affected -- plan  -out=/tmp/tfplan
 
-          terragrunt run -- show -json /tmp/tfplan > /tmp/tfplan.json
+          terragrunt run --all -- show -json /tmp/tfplan > /tmp/tfplan.json
 
           checkov -f /tmp/tfplan.json --output sarif --output-file-path /tmp/
