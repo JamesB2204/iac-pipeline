@@ -27,12 +27,17 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.9
+      
+      - name: set up terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+        terraform_version: "1.1.7"
 
       - name: Install Terragrunt and OpenTofu
         uses: gruntwork-io/terragrunt-action@v3
         with:
           tg_version: '0.82.2'
-          tofu_version: '1.10.1'
+          tf_path = '' 
 
           # please view:
       # https://www.checkov.io/8.Outputs/SARIF.html
