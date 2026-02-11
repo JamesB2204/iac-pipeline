@@ -8,12 +8,14 @@ on:
       branch:
         required: true
         type: string
+
+permissions:
+  id-token: write
+  contents: read
+  
 jobs:
   terraform-quality-checks:
     runs-on: ubuntu-24.04
-    permissions:
-      id-token: write
-      contents: read
     steps:
           
       - name: checkout lower branch
