@@ -12,18 +12,17 @@ jobs:
   terraform-quality-checks:
     runs-on: ubuntu-24.04
     steps:
-      
+    
+      - uses: 'google-github-actions/auth@v0.4.0'
+        with:
+          project_id: '${{ env.GCP_PROJECT_ID }}'
+          workload_identity_provider: 'projects/379193353600/locations/global/workloadIdentityPools/github-action-pool/providers/github-action-provider'
+          service_account: 'srv-pipeline@iac-pipeline-486415.iam.gserviceaccount.com'
+          
       - name: checkout lower branch
         uses: actions/checkout@v4
         with:
           ref: ${{ inputs.branch }}
-      
-      - name: Authenticate to GCP
-        uses: 'google-github-actions/auth@v0.4.0'
-        with:
-          project_id: '${{ env.GCP_PROJECT_ID }}'
-          service_account: 'srv-pipeline@iac-pipeline-486415.iam.gserviceaccount.com'
-        
 
       - name: Set up python 3.9
         uses: actions/setup-python@v4
