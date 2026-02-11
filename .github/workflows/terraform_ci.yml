@@ -1,11 +1,20 @@
 name: CI-software-quality-checks
 run-name: Checking code quality for${{ github.actor }}
-on: [workflow_call]
+on:
+  workflow_call:
+    inputs:
+      branch:
+        required: true
+        type: string
 jobs:
   terraform-quality-checks:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - name: checkout lower branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+
       - name: Set up python 3.9
         uses: actions/setup-python@v4
         with:
@@ -15,7 +24,7 @@ jobs:
         uses: gruntwork-io/terragrunt-action@v3
         with:
           tg_command: "hcl fmt --check --diff"
-          
+
           # please view:
       # https://www.checkov.io/8.Outputs/SARIF.html
       # https://docs.github.com/en/code-security/how-tos/scan-code-for-vulnerabilities/integrate-with-existing-tools/uploading-a-sarif-file-to-github#uploading-a-code-scanning-analysis-with-github-actions
