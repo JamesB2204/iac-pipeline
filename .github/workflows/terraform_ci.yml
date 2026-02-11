@@ -32,6 +32,8 @@ jobs:
       - name: start quality checks
         shell: bash
         run: |
+          echo "$PWD"
+          
           echo "Starting Terraform code quality checks"
 
           terragrunt init
