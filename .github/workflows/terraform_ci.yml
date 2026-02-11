@@ -33,10 +33,10 @@ jobs:
         shell: bash
         run: |
           echo "$PWD"
-          
+
           echo "Starting Terraform code quality checks"
 
-          terragrunt init
+          terragrunt run --all init
 
           terragrunt run --all --filter-affected -- plan  -out=/tmp/tfplan
 
