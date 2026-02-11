@@ -21,7 +21,7 @@ jobs:
           ref: ${{ inputs.branch }}
       
       - name: Fetch base branch
-        run: git fetch origin main:main
+        run: git fetch origin ${{ env.higher_branch }}:${{ env.higher_branch }}
       
       - uses: 'google-github-actions/auth@v3'
         with:
