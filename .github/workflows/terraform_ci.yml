@@ -10,8 +10,6 @@ on:
     secrets:
       cloud_token:
         required: true
-        type: string
-
 jobs:
   terraform-quality-checks:
     runs-on: ubuntu-24.04
