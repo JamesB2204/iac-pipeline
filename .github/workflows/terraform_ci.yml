@@ -1,30 +1,33 @@
 name: CI-software-quality-checks
 run-name: Checking code quality for${{ github.actor }}
 on: [workflow_call]
-jobs: 
+jobs:
   terraform-quality-checks:
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up python 3.9
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-    - name: Test with Checkov
-      id: checkov
-      uses: bridgecrewio/checkov-action@v12.1347.0
-      with:
-        directory: live/dev/terragrunt.hcl
-        framework: terraform 
-      shell: bash
-      run: |
-        echo "Starting Terraform code quality checks"
+      - uses: actions/checkout@v4
+      - name: Set up python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
 
-        terragrunt init
-    # please view:
-    # https://www.checkov.io/8.Outputs/SARIF.html
-    # https://docs.github.com/en/code-security/how-tos/scan-code-for-vulnerabilities/integrate-with-existing-tools/uploading-a-sarif-file-to-github#uploading-a-code-scanning-analysis-with-github-actions
-    - run: checkov -d . -o sarif > results.sarif
-    - run: cat results.sarif
+      - name: Install Terragrunt and OpenTofu
+        uses: gruntwork-io/terragrunt-action@v3
+        with:
+          tg_command: "hcl fmt --check --diff"
+          
+          # please view:
+      # https://www.checkov.io/8.Outputs/SARIF.html
+      # https://docs.github.com/en/code-security/how-tos/scan-code-for-vulnerabilities/integrate-with-existing-tools/uploading-a-sarif-file-to-github#uploading-a-code-scanning-analysis-with-github-actions
+      - name: start quality checks
+        shell: bash
+        run: |
+          echo "Starting Terraform code quality checks"
 
-  
+          terragrunt init
+
+          terragrunt run --all --filter-affected -- plan  -out=/tmp/tfplan
+
+          terragrunt run -- show -json /tmp/tfplan > /tmp/tfplan.json
+
+          checkov -f /tmp/tfplan.json --output sarif --output-file-path /tmp/
