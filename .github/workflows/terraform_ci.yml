@@ -50,7 +50,7 @@ jobs:
       # https://www.checkov.io/8.Outputs/SARIF.html
       # https://docs.github.com/en/code-security/how-tos/scan-code-for-vulnerabilities/integrate-with-existing-tools/uploading-a-sarif-file-to-github#uploading-a-code-scanning-analysis-with-github-actions
       # run all allows for terragrunt to check repo root
-      - name: start quality checks
+      - name: start plans for terragrunt
         shell: bash
         run: |
           echo "$PWD"
@@ -62,5 +62,7 @@ jobs:
           terragrunt run --all --filter-affected -- plan  -out=/tmp/tfplan
 
           terragrunt run --all -- show -json /tmp/tfplan > /tmp/tfplan.json
-
-          checkov -f /tmp/tfplan.json --output sarif --output-file-path /tmp/
+      
+      - name: run checkov against plan results
+        run: checkov -f /tmp/tfplan.json --output sarif --output-file-path /tmp/
+      
