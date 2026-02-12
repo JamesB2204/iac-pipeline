@@ -82,11 +82,13 @@ jobs:
       #     output_format: cli,sarif
       #     output_file_path: console,/tmp/results_sarif.sarif
       #   continue-on-error: true
-      
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v3
-      
+
       - name: show sarif file
       # results_sarif.sarif is the default sarif file name generated
         run: cat /tmp/results_sarif.sarif
+      
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: /tmp/results_sarif.sarif
       
