@@ -91,5 +91,5 @@ jobs:
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: /tmp/results_sarif.sarif
-          commit_oid: ${{ github.sha }}
+          sha: ${{ github.sha }}
       
