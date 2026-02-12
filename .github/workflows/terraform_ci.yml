@@ -23,6 +23,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ inputs.branch }}
+          fetch-depth: 0
       
       - name: Fetch base branch
         run: git fetch origin ${{ env.higher_branch }}:${{ env.higher_branch }}
@@ -91,5 +92,3 @@ jobs:
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: /tmp/results_sarif.sarif
-          sha: ${{ github.sha }}
-      
