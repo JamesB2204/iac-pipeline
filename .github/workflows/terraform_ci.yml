@@ -11,12 +11,12 @@ on:
         required: true
 env:
   higher_branch: ${{ inputs.branch == 'develop' && 'main' }}  
+permissions:
+  contents: read 
+  security-events: write 
+  actions: read 
 jobs:
   terraform-quality-checks:
-    permissions:
-      contents: read 
-      security-events: write 
-      actions: read 
     runs-on: ubuntu-24.04
     steps:   
       - name: checkout lower branch
